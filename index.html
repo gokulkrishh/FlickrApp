@@ -1,19 +1,57 @@
 <!doctype html>
-<html ng-app="">
+<html ng-app="FlickrApp">
 	<head>
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 <body>
+	<div class="main-container" ng-controller="myController">
+		<!-- <div id="spinner" >
+			<img id="img-spinner" class="model"/>
+		</div> -->
+		<div class="box" ng-repeat="i in data.items" style="background:url('{{i.media.m}}')">
+			<!-- <div ng-bind="i.author_id"></div> -->
+		<span class="author">
+			Author name: {{i.author.replace("nobody@flickr.com (","").replace(")","")}}
+			<br>
+			<br>
+			<a class="btn btn-sm btn-primary" href="{{i.link}}">View My Photos</a>
+		</span>
 
-
-
+		</div>
+	</div>
 	
-	<script type="text/javascript" src="scripts/angular.min.js"></script>
 	<script type="text/javascript" src="scripts/jquery-2.0.2.min.js"></script>
 	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-	<script type="text/javascript">
-
-	</script>
+	<script src="scripts/angular.js"></script>
+  	<script src="scripts/angular-route.js"></script>
+  	<script type="text/javascript">
+  		var FlickrApp = angular.module('FlickrApp',[]); //created a module called FlickrApp
+  		FlickrApp.controller('myController',publicFeed); // adding controller as myController 
+  		function publicFeed($scope) {
+  			// making an ajax call to flickr public feed
+  			$.ajax({
+  				url:'http://api.flickr.com/services/feeds/photos_public.gne?format=json',
+  				type:'GET',
+  				dataType:'jsonp',
+  				crossDomain:true,
+  				jsonpCallback:'jsonFlickrFeed',
+  				success:function(data){ //$apply to exe expression outside angular framework 
+  					$scope.$apply(function(){
+  						//storing the json formatted callback to $scope variable
+  						$scope.data = data; 
+  						console.log(data);
+  					});
+  				},
+  				error:function(err){
+  					$scope.$apply(function(){
+  						$scope.data = err;
+  						//console.log(err);
+  					});
+  				}
+  			});
+  		}
+  	</script>
 </body>
 </html>

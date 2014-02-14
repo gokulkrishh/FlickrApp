@@ -1,0 +1,66 @@
+/*box border*/
+$border : 1px solid #ccc;
+
+/*box shadow*/
+@mixin boxshadow($radius){
+	-webkit-box-shadow :$radius;
+	-moz-box-shadow :$radius;
+	-o-box-shadow :$radius;
+	box-shadow :$radius;
+}
+.navbar{
+
+}
+/*box width and height */
+$widtheight:230px;
+.main-container{
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+width:80%;
+}
+.box{
+width:$widtheight;
+height: $widtheight;
+border:$border;
+@include boxshadow(0 3px 3px #ccc);
+float:left;
+margin-left: 20px;
+margin-bottom: 20px;
+position: relative;
+cursor: pointer;
+}
+/*.model{
+	display:none;
+	position:fixed;
+	z-index:1000;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%; 
+	background:rgba(0,0,0,0.8) 
+	url('images/ajax-loader.gif') 50% 50% no-repeat;
+}	*/	
+.author{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 45%;
+	bottom: 0;
+	background: rgba(0,0,0,0.7);
+	text-align: center;
+	display: none;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1em;
+}
+.box:hover {
+	.author{
+	display:  block;
+	padding-top: 10px;
+	}
+}		
+a{
+	text-decoration: none
+}
+		
