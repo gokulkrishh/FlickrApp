@@ -1,24 +1,31 @@
 <!doctype html>
 <html ng-app="FlickrApp">
 	<head>
-		<title></title>
+		<title>Flickr Application</title>
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
 <body>
-	<div class="main-container" ng-controller="myController">
-		<!-- <div id="spinner" >
-			<img id="img-spinner" class="model"/>
-		</div> -->
-		<div class="box" ng-repeat="i in data.items" style="background:url('{{i.media.m}}')">
-			<!-- <div ng-bind="i.author_id"></div> -->
-		<span class="author">
-			Author name: {{i.author.replace("nobody@flickr.com (","").replace(")","")}}
-			<br>
-			<br>
-			<a class="btn btn-sm btn-primary" href="{{i.link}}">View My Photos</a>
-		</span>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="/" class="navbar-brand">Flick App</a>
+			</div>
+		<ul class="nav navbar-nav navbar-left">
+			<li><a href="/">Home</a></li>
+			<li><a href="/author">About Author</a></li>
+			<li><a href="/about">About App</a></li>
+		</ul> 
+	</nav>
 
+	<div class="main-container container" ng-controller="myController">
+		<div class="box" ng-repeat="i in data.items" style="background:url('{{i.media.m}}')">
+			<span class="author">
+				Author name: {{i.author.replace("nobody@flickr.com (","").replace(")","")}}
+				<br>
+				<br>
+				<a class="btn btn-sm btn-primary" href="{{i.link}}">View My Photos</a>
+			</span>
 		</div>
 	</div>
 	
@@ -37,7 +44,8 @@
   				dataType:'jsonp',
   				crossDomain:true,
   				jsonpCallback:'jsonFlickrFeed',
-  				success:function(data){ //$apply to exe expression outside angular framework 
+  				success:function(data){ 
+  				//$apply is used to exe expression outside angular framework 
   					$scope.$apply(function(){
   						//storing the json formatted callback to $scope variable
   						$scope.data = data; 
