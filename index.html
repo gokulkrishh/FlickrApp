@@ -1,68 +1,101 @@
 <!doctype html>
 <html ng-app="FlickrApp">
-	<head>
-		<title>Flickr Application</title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-	</head>
+  <head>
+    <title>Flickr Application</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<a href="/" class="navbar-brand">Flick App</a>
-			</div>
-		<ul class="nav navbar-nav navbar-left">
-			<li><a href="/">Home</a></li>
-			<li><a href="/about">About App</a></li>
-		</ul> 
-	</nav>
+  <!-- navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Flick App</a>
+      </div>
+    <ul class="nav navbar-nav navbar-left">
+      <li><a href="#/">Home</a></li>
+      <li><a href="#/photos">About App</a></li>
+    </ul> 
+  </nav>
+  <!-- view  -->
+  <div class="controller" style="min-height:500px;margin-top:5%;">
+      <div ng-view></div>
+  </div>
+  <!-- footer  -->
+  <div id="footer">
+    <div class="container">
+      <p>Site Designed and Developed by gokulkrishh</p>
+    </div>
+  </div>
+  <script type="text/javascript" src="scripts/angular.min.js"></script>
+  <script type="text/javascript" src="scripts/angular-route.js"></script>
+  <script type="text/javascript" src="scripts/jquery-2.0.2.min.js"></script>
+  <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+  <script type="text/javascript">
+      //created a module called FlickrApp
+      var FlickrApp = angular.module('FlickrApp',['ngRoute']); 
+      
+      // adding controller as myController 
+      FlickrApp.controller('myController',publicFeed); 
 
-	<div class="main-container container" ng-controller="myController">
-		<div class="box" ng-repeat="i in data.items" style="background:url('{{i.media.m}}')">
-			<span class="author">
-				Author name: {{i.author.replace("nobody@flickr.com (","").replace(")","")}}
-				<br>
-				<br>
-				<a class="btn btn-sm btn-primary" href="{{i.link}}">View My Photos</a>
-			</span>
-		</div>
-	</div>
-	<div id="footer">
-		<div class="container">
-			<p>Site Designed and Developed by gokulkrishh</p>
-		</div>
-	</div>
-	<script type="text/javascript" src="scripts/jquery-2.0.2.min.js"></script>
-	<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-	<script src="scripts/angular.js"></script>
-  	<script src="scripts/angular-route.js"></script>
-  	<script type="text/javascript">
-  		var FlickrApp = angular.module('FlickrApp',[]); //created a module called FlickrApp
-  		FlickrApp.controller('myController',publicFeed); // adding controller as myController 
-  		function publicFeed($scope) {
-  			// making an ajax call to flickr public feed
-  			$.ajax({
-  				url:'http://api.flickr.com/services/feeds/photos_public.gne?format=json',
-  				type:'GET',
-  				dataType:'jsonp',
-  				crossDomain:true,
-  				jsonpCallback:'jsonFlickrFeed',
-  				success:function(data){ 
-  				//$apply is used to exe expression outside angular framework 
-  					$scope.$apply(function(){
-  						//storing the json formatted callback to $scope variable
-  						$scope.data = data; 
-  						console.log(data);
-  					});
-  				},
-  				error:function(err){
-  					$scope.$apply(function(){
-  						$scope.data = err;
-  						//console.log(err);
-  					});
-  				}
-  			});
-  		}
-  	</script>
+      // creating a factory service
+      FlickrApp.factory('fetchPhotos',function($http,$q){
+        var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&callback=jsonFlickrFeed";
+        var defered = $q.defer();
+        var params = {
+          jsoncallback: 'JSON_CALLBACK'
+        };
+        return{
+            fetchData :function(){
+            $http.jsonp(url,{
+              params:params
+            }).success(function(data) {
+              defered.resolve(data);
+            }).error(function(data) {
+              defered.resolve("Error Occurred");
+            });
+            return defered.promise;
+          }
+        }
+      });
+        
+        //passing a fectchPhotos factory service
+        function publicFeed($scope,fetchPhotos) {
+        $scope.details = [];
+        fetchPhotos.fetchData().then(function(data){
+          $scope.details = data;
+        },
+        function(err){
+          $scope.details = err;
+          console.log(err);
+        });
+      } 
+
+      //routing 
+      FlickrApp.config(function($routeProvider) {
+      $routeProvider.
+        when('/', 
+        {
+          controller:'myController', 
+          templateUrl:'templates/Publicphotos.html',
+        });
+        $routeProvider.when('/photos', 
+        {
+          controller:'photoController', 
+          templateUrl:'templates/Userphotos.html',
+        });
+        $routeProvider.otherwise({redirectTo:'/'});
+      });
+
+      // user photo controller
+      FlickrApp.controller('photoController',userPhoto);
+      function userPhoto($scope){
+        $scope.myPublicPic = function(photoid,authorname) {
+         $scope.userid = photoid;
+         $scope.username = authorname.replace("nobody@flickr.com (","").replace(")","");
+        }
+      }
+</script>
 </body>
 </html>
+

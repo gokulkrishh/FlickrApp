@@ -11,15 +11,18 @@ $border : 1px solid #ccc;
 .navbar{
 
 }
-/*box width and height */
-$widtheight:230px;
 .main-container{
 margin-left: auto;
 margin-right: auto;
 text-align: center;
-width:80%;
-margin-top: 10%;
+width:85%;
+margin-top: 6%;
+min-height:500px;
 }
+
+/*box width and height */
+$widtheight:230px;
+
 .box{
 width:$widtheight;
 height: $widtheight;
@@ -62,10 +65,10 @@ cursor: pointer;
 	}
 }		
 #footer{
-	height:70px;
-	background-color:#f5f5f5;
-	padding-top: 30px;	
+	height: 70px;
+	background-color: #CECECE;
+	padding-top: 20px;
 	p{
-		text-align:right;
+		text-align:left;
 	}
 }
