@@ -5,9 +5,8 @@
         {{i.author.replace("nobody@flickr.com (","").replace(")","")}}
         <br>
         <br>
-        <a class="btn btn-sm btn-primary viewlink" 
-        ng-click="myPublicPic(i.author_id,i.author)" 
-        name="{{i.author_id}}" href="#/photos" ng-controller="photoController">View My Photos</a>
+        <a class="btn btn-sm btn-primary viewlink" ng-controller="photoController"
+        ng-click="myPublicPic(i.author_id,i.author)" href="#/photos">View My Photos</a>
       </span>
     </div>
 </div>
