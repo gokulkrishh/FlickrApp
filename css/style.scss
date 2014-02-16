@@ -11,13 +11,44 @@ $border : 1px solid #ccc;
 .navbar{
 
 }
+/* min- height for container */
+$height : 500px;
+
+.myphoto-container{
+	width: 100%;
+	min-height: $height;
+}
+.photo-header{
+	height: 200px;
+	width: 100%;
+	margin-bottom: 5%;
+	margin-top: -40px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.myphoto-box{
+	float:right;
+	width:75%;
+}
+.photo-container{
+	float: left;
+	width: 65%;
+	margin-left: 10%;
+	margin-top: -30px;
+}
+.friendlist{
+	float: right;
+	width: 25%;
+	min-height: 500px;
+	margin-top: -30px;
+}
 .main-container{
 margin-left: auto;
 margin-right: auto;
 text-align: center;
 width:85%;
 margin-top: 6%;
-min-height:500px;
+min-height:$height;
 }
 
 /*box width and height */
@@ -33,6 +64,17 @@ margin-left: 20px;
 margin-bottom: 20px;
 position: relative;
 cursor: pointer;
+}
+myphotobox{
+	width: 150px;
+	height: 150px;
+	border:$border;
+	@include boxshadow(0 3px 3px #ccc);
+	float:left;
+	margin-left: 20px;
+	margin-bottom: 20px;
+	position: relative;
+	cursor: pointer;
 }
 /*.model{
 	display:none;
@@ -71,4 +113,14 @@ cursor: pointer;
 	p{
 		text-align:left;
 	}
+}
+.mypic{
+	width: 150px;
+	border: 1px solid #000;
+	height: 150px;
+	margin-left: 100px;
+	margin-top: 18px;
+}
+.publicpic{
+	text-align: left;
 }

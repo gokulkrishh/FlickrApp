@@ -1,5 +1,39 @@
 /*box border*/
 /*box shadow*/
+/* min- height for container */
+.myphoto-container {
+  width: 100%;
+  min-height: 500px;
+}
+
+.photo-header {
+  height: 200px;
+  width: 100%;
+  margin-bottom: 5%;
+  margin-top: -40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.myphoto-box {
+  float: right;
+  width: 75%;
+}
+
+.photo-container {
+  float: left;
+  width: 65%;
+  margin-left: 10%;
+  margin-top: -30px;
+}
+
+.friendlist {
+  float: right;
+  width: 25%;
+  min-height: 500px;
+  margin-top: -30px;
+}
+
 .main-container {
   margin-left: auto;
   margin-right: auto;
@@ -13,6 +47,21 @@
 .box {
   width: 230px;
   height: 230px;
+  border: 1px solid #cccccc;
+  -webkit-box-shadow: 0 3px 3px #cccccc;
+  -moz-box-shadow: 0 3px 3px #cccccc;
+  -o-box-shadow: 0 3px 3px #cccccc;
+  box-shadow: 0 3px 3px #cccccc;
+  float: left;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+myphotobox {
+  width: 150px;
+  height: 150px;
   border: 1px solid #cccccc;
   -webkit-box-shadow: 0 3px 3px #cccccc;
   -moz-box-shadow: 0 3px 3px #cccccc;
@@ -61,5 +110,17 @@
   padding-top: 20px;
 }
 #footer p {
+  text-align: left;
+}
+
+.mypic {
+  width: 150px;
+  border: 1px solid #000;
+  height: 150px;
+  margin-left: 100px;
+  margin-top: 18px;
+}
+
+.publicpic {
   text-align: left;
 }

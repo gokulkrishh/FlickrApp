@@ -1,5 +1,5 @@
 <div class="main-container container" id="main-container" ng-controller="myController">
-    <h1 style="padding-bottom: 3%;">Public Photos</h1>
+    <h1 class="publicpic" style="padding-bottom: 3%;">Public Photos</h1>
     <div class="box" ng-repeat="i in details.items" style="background:url('{{i.media.m}}')">
       <span class="author">
         {{i.author.replace("nobody@flickr.com (","").replace(")","")}}

@@ -1,6 +1,7 @@
 <!doctype html>
 <html ng-app="FlickrApp">
   <head>
+    <meta http-equiv="content-script-type" content="text/javascript">
     <title>Flickr Application</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -32,7 +33,7 @@
   <script type="text/javascript" src="scripts/angular-route.js"></script>
   <script type="text/javascript" src="scripts/jquery-2.0.2.min.js"></script>
   <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-  <script type="text/javascript">
+  <script>
       //created a module called FlickrApp
       var FlickrApp = angular.module('FlickrApp',['ngRoute']); 
       
@@ -42,6 +43,7 @@
       // creating a factory service
       FlickrApp.factory('fetchPhotos',function($http,$q){
         var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&callback=jsonFlickrFeed";
+        //var url = "/simple.json";
         var defered = $q.defer();
         var params = {
           jsoncallback: 'JSON_CALLBACK'
@@ -71,8 +73,68 @@
           console.log(err);
         });
       } 
-
-      //routing 
+      // user photo controller
+      FlickrApp.controller('photoController',userPhotoId);
+      function userPhotoId($scope,$rootScope,$http,$q) {
+        $scope.message = "hi";
+        $scope.userData;
+        $rootScope.userPhotos = [];
+        $scope.myPublicPic = function(photoid,authorname) {
+        $scope.userid = photoid;
+        if(photoid !== "" || null)
+        {
+          var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
+          var url1 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&sort=date-taken-desc&api_key="
+          +api_key+"&user_id="+photoid+"&per_page=12&format=json&callback=jsonFlickrApi";
+          var defered1 = $q.defer();
+          //console.log(url1);
+          $scope.params = {
+            jsoncallback: 'JSON_CALLBACK',
+          }
+          $scope.getUserId = function(){
+          $http.jsonp(url1,{
+            params:$scope.params
+          }).success(function(data) {
+            console.log("1st call");
+            defered1.resolve(data);
+          }).error(function(data) {
+            alert("1st error");
+            defered1.resolve("Error Occurred");
+          });
+          return defered1.promise;
+          }
+          $scope.getUserId().then(function(data)
+          {            
+            $scope.userData = data;
+            //console.log($scope.userData);
+             for(var i in $scope.userData.photos.photo){
+              var url = "http://farm"+ $scope.userData.photos.photo[i].farm +".staticflickr.com/"+$scope.userData.photos.photo[i].server+"/"+ $scope.userData.photos.photo[i].id+"_"+$scope.userData.photos.photo[i].secret+".jpg";
+              $rootScope.userPhotos.push(url);
+              //console.log($rootScope);
+            }
+            //console.log($rootScope);
+          },
+          function(err){
+            $rootScope.userPhotos = err;
+            console.log(err);
+           });
+        }    
+      }
+  }
+    //service for friend list
+    FlickrApp.controller('FriendPic',friendList);
+    function friendList(fetchPhotos) {
+        $scope.details = [];
+        fetchPhotos.fetchData().then(function(data){
+          $scope.details = data;
+        },
+        function(err){
+          $scope.details = err;
+          console.log(err);
+        });
+        console.log(data);
+    }
+    //routing 
       FlickrApp.config(function($routeProvider) {
       $routeProvider.
         when('/', 
@@ -85,84 +147,13 @@
           controller:'photoController', 
           templateUrl:'templates/Userphotos.html',
         });
+        $routeProvider.when('/friendlist', 
+        {
+          controller:'photoController', 
+          templateUrl:'templates/Userphotos.html',
+        });
         $routeProvider.otherwise({redirectTo:'/'});
       });
-
-      // user photo controller
-      FlickrApp.controller('photoController',userPhotoId);
-      function userPhotoId($scope,$http,$q){
-        $scope.myPublicPic = function(photoid,authorname) {
-        $scope.userid = photoid;
-        console.log($scope.userid);
-        if(photoid !== "" || null)
-        {
-          var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
-          var url1 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&api_key="
-          +api_key+"&user_id="+photoid+"&format=json&callback=jsonFlickrApi";
-          var defered1 = $q.defer();
-          console.log(url1);
-          $scope.params = {
-            jsoncallback: 'JSON_CALLBACK'
-          }
-          getUserId = function(){
-          $http.jsonp(url1,{
-            params:$scope.params
-          }).success(function(data) {
-            alert("1st call success");
-            defered1.resolve(data);
-          }).error(function(data) {
-            alert("1st error");
-            defered1.resolve("Error Occurred");
-          });
-          return defered1.promise;
-          }
-        getUserId();
-      }
-      function getUserPhoto(){
-        $scope.uid = [];
-        $scope.arr = [];
-        getUserId().then(function(data){
-          $scope.uid = data;
-          console.log(data);
-        },
-        function(err){
-          $scope.uid = err;
-          console.log(err);
-        });
-        angular.forEach($scope.uid.photos,function(key,value){
-          console.log(key+ " : " +value)
-        },$scope.arr);        
-        console.log($scope.arr);
-        /*$scope.getUserName = function(){
-          var url = "http://farm"+ +".staticflickr.com/{server-id}/{id}_{secret}.jpg";
-           $http.jsonp(url,{
-              params:$scope.params
-            }).success(function(data) {
-              alert("2nd call success");
-              defered.resolve(data);
-              console.log(data);
-            }).error(function(data) {
-              alert("2nd call error");
-              defered.resolve("Error Occurred");
-              console.log(data);
-            });
-            return defered.promise;
-          }
-        }
-        function getPhotos(){
-        $scope.details = [];
-        $scope.getUserName().then(function(data){
-          $scope.details = data;
-        },
-        function(err){
-          $scope.details = err;
-          console.log(err);
-        });
-      }*/
-    }
-    getUserPhoto();
-  }
-  }
 </script>
 </body>
 </html>

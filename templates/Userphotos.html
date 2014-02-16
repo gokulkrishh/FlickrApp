@@ -1,7 +1,24 @@
-<div class="main-container container" id="main-container">
-    <h1 style="padding-bottom: 3%;">User Photos</h1>
-    <div>{{userid}}</div>
-    <br>
-    <br>
-    <div>{{username}}</div>
+<div class="myphoto-container container" ng-controller="photoController">
+    <div class="photo-header well">
+    	<div class="mypic"><img src="" ></div>
+	</div>
+	<div class="photo-container container">
+	    <div class="box myphoto-box" ng-repeat="i in userPhotos" style="background:url('{{i}}')"> 
+    	</div>
+	</div>
+	<div class="friendlist well" >
+		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
+		<br><br>
+		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
+		<br><br>
+		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
+		<br><br>
+		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
+		<br><br>
+		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
+		<br><br>
+		
+		
+	</div>
 </div>
+
