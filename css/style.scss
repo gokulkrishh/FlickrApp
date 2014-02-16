@@ -15,16 +15,18 @@ $border : 1px solid #ccc;
 $height : 500px;
 
 .myphoto-container{
-	width: 100%;
 	min-height: $height;
 }
 .photo-header{
-	height: 200px;
-	width: 100%;
+	min-height: 230px;
+	width: 85%;
 	margin-bottom: 5%;
 	margin-top: -40px;
+	background: #D6D6D6;
 	border: 1px solid #ccc;
 	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
 }
 .myphoto-box{
 	float:right;
@@ -32,14 +34,7 @@ $height : 500px;
 }
 .photo-container{
 	float: left;
-	width: 65%;
-	margin-left: 10%;
-	margin-top: -30px;
-}
-.friendlist{
-	float: right;
-	width: 25%;
-	min-height: 500px;
+	width: 75%;
 	margin-top: -30px;
 }
 .main-container{
@@ -114,13 +109,69 @@ myphotobox{
 		text-align:left;
 	}
 }
-.mypic{
+.myProfilePic{
 	width: 150px;
-	border: 1px solid #000;
 	height: 150px;
+	border: 1px solid #000;
 	margin-left: 100px;
 	margin-top: 18px;
 }
 .publicpic{
 	text-align: left;
+}
+.leftDetails{
+	margin-top: -170px;
+	float: left;
+	width: 50%;
+	margin-left: 280px;
+}
+.userprof{
+	color: #428bca !important;
+	text-decoration: none;
+}
+.userprof:hover{
+	color: #428bca;
+	text-decoration: underline;
+}
+.rightDetails{
+	margin-top: -70px;
+	float:right;
+	margin-right:50px;
+}
+.photoCount{
+	font-size: 16px;
+	padding-bottom: inherit;
+	float: left;
+}
+.userdesc{
+	text-overflow: ellipsis;
+	height: 43px;
+	overflow: hidden;
+	font-size: 16px;
+}
+.profbtn{
+	margin-top: 20px;
+}
+.friendlist{
+	background:#D6D6D6;
+	max-width: 26%;
+	float: right;
+	width: 25%;
+	min-height: 500px;
+	margin-top: -30px;
+}
+.myFriend:hover{
+	text-decoration:none !important;
+	margin-bottom:5px;
+	cursor:pointer;
+}
+.friendlistDiv{
+	width: 100%;
+	margin-bottom: 10px;
+	height: 25px;
+	text-align: left;
+	padding-top: 3px;
+}
+.friendlistDiv:hover{
+	background-color:#ccc;
 }

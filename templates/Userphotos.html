@@ -1,24 +1,32 @@
+<div class="photo-header well">
+    	<div class="myProfilePic" style="background:url('{{imgUrl}} no-repeat');background-size: 100%;">
+    	</div>
+    	<div class="container leftDetails">
+    		<h2 class="username">{{userInfo.username._content}}</h2>
+    		<p class="userdesc"><b>Description:</b>{{userInfo.description._content}}</p>
+    		<p class="photoCount"><b>Total photos:</b> {{userInfo.photos.count._content}}</p>
+    		<br><br>
+    		<a href="{{userInfo.profileurl._content}}" target="_blank" title="view my profile" 
+    		class="userprof">{{userInfo.profileurl._content}}</a>
+    	</div>
+    	<!-- <div class="rightDetails">
+    		
+    	</div> -->
+</div>
 <div class="myphoto-container container" ng-controller="photoController">
-    <div class="photo-header well">
-    	<div class="mypic"><img src="" ></div>
-	</div>
 	<div class="photo-container container">
 	    <div class="box myphoto-box" ng-repeat="i in userPhotos" style="background:url('{{i}}')"> 
     	</div>
 	</div>
-	<div class="friendlist well" >
-		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
-		<br><br>
-		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
-		<br><br>
-		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
-		<br><br>
-		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
-		<br><br>
-		<button class="btn btn-info"><a href="#/friendlist" style="color:#fff">Gokul</a></button>
-		<br><br>
-		
-		
+	<div class="friendlist well">
+		<h3>My Friend List</h3>
+		<hr>
+		<div class="container friendlistDiv" ng-repeat="j in friendInfo.contacts.contact">
+			<a class="myFriend" href="#/myFriends" ng-click="myFriends()">{{j.username}}
+			</a>
+		</div>
+		<br>
+		<br>
 	</div>
 </div>
 

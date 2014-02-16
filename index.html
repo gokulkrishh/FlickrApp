@@ -79,38 +79,76 @@
         $scope.message = "hi";
         $scope.userData;
         $rootScope.userPhotos = [];
+        $rootScope.userInfo = [];
         $scope.myPublicPic = function(photoid,authorname) {
-        $scope.userid = photoid;
-        if(photoid !== "" || null)
-        {
-          var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
-          var url1 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&sort=date-taken-desc&api_key="
-          +api_key+"&user_id="+photoid+"&per_page=12&format=json&callback=jsonFlickrApi";
-          var defered1 = $q.defer();
-          //console.log(url1);
-          $scope.params = {
+        var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
+        $scope.params = {
             jsoncallback: 'JSON_CALLBACK',
-          }
-          $scope.getUserId = function(){
+          };
+        //ajax call for user detail
+        var url1 = "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key="
+                    +api_key+"&user_id="+photoid+"&format=json";
+        console.log(url1);
+        var defered = $q.defer();
+        $scope.getUserInfo = function(){
           $http.jsonp(url1,{
             params:$scope.params
           }).success(function(data) {
-            console.log("1st call");
-            defered1.resolve(data);
+            console.log("userinfo call");
+            defered.resolve(data);
           }).error(function(data) {
-            alert("1st error");
-            defered1.resolve("Error Occurred");
+            alert("userinfo error");
+            defered.resolve("Error Occurred");
           });
-          return defered1.promise;
+          return defered.promise;
           }
+          $scope.getUserInfo().then(function(data)
+          {            
+                $rootScope.userInfo = data.person;
+                $rootScope.imgUrl = "http://farm"+$rootScope.userInfo.iconfarm+
+                  ".staticflickr.com/"+$rootScope.userInfo.iconserver+"/buddyicons/"+
+                  $rootScope.userInfo.nsid+".jpg";
+                  //console.log($rootScope.imgUrl);
+                var url3 = "http://api.flickr.com/services/rest/?method=flickr.contacts.getPublicList&api_key="+api_key+"&user_id="+data.person.id+"&format=json";
+                console.log(url3)
+                $http.jsonp(url3,{
+                params:$scope.params
+                }).success(function(data) {
+                  console.log("friendinfo call");
+                  $rootScope.friendInfo = data;
+                }).error(function(data) {
+                  $rootScope.friendInfo = data;
+                  console.log("friendinfo error");
+                });
+          },function(data){
+              console.log(data);
+          });
+          //ajax call for user public photos
+          if(photoid !== "" || null)
+          {
+          var url2 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&sort=date-taken-desc&api_key="
+            +api_key+"&user_id="+photoid+"&per_page=24&format=json&callback=jsonFlickrApi";
+            var defered1 = $q.defer();
+            //console.log(url1);
+            $scope.getUserId = function(){
+            $http.jsonp(url2,{
+              params:$scope.params
+            }).success(function(data) {
+              console.log("2nd call");
+              defered1.resolve(data);
+            }).error(function(data) {
+              alert("1st error");
+              defered1.resolve("Error Occurred");
+            });
+            return defered1.promise;
+            }
           $scope.getUserId().then(function(data)
           {            
             $scope.userData = data;
             //console.log($scope.userData);
              for(var i in $scope.userData.photos.photo){
               var url = "http://farm"+ $scope.userData.photos.photo[i].farm +".staticflickr.com/"+$scope.userData.photos.photo[i].server+"/"+ $scope.userData.photos.photo[i].id+"_"+$scope.userData.photos.photo[i].secret+".jpg";
-              $rootScope.userPhotos.push(url);
-              //console.log($rootScope);
+               $rootScope.userPhotos.push(url);
             }
             //console.log($rootScope);
           },
@@ -121,20 +159,20 @@
         }    
       }
   }
-    //service for friend list
+    //controller for friend list
     FlickrApp.controller('FriendPic',friendList);
-    function friendList(fetchPhotos) {
-        $scope.details = [];
+    function friendList($scope,fetchPhotos) {
+        $scope.details1 = [];
         fetchPhotos.fetchData().then(function(data){
-          $scope.details = data;
+          $scope.details1 = data;
+          console.log(data);
         },
         function(err){
-          $scope.details = err;
+          $scope.details1 = err;
           console.log(err);
         });
-        console.log(data);
     }
-    //routing 
+      //routing 
       FlickrApp.config(function($routeProvider) {
       $routeProvider.
         when('/', 
@@ -149,8 +187,8 @@
         });
         $routeProvider.when('/friendlist', 
         {
-          controller:'photoController', 
-          templateUrl:'templates/Userphotos.html',
+          controller:'myController', 
+          templateUrl:'templates/myFriendPhotos.html',
         });
         $routeProvider.otherwise({redirectTo:'/'});
       });
