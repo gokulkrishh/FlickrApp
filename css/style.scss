@@ -11,6 +11,32 @@ $border : 1px solid #fff;
 	-o-box-shadow :$radius;
 	box-shadow :$radius;
 }
+@mixin desctTag(){
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 45%;
+	bottom: 0;
+	background: rgba(0,0,0,0.7);
+	text-align: center;
+	display: none;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1em;
+}
+@mixin authTag(){
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	background: rgba(0,0,0,0.1);
+	text-align: center;
+	display: none;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1em;
+}
 .navbar{
 
 }
@@ -86,17 +112,7 @@ myphotobox{
 	url('images/ajax-loader.gif') 50% 50% no-repeat;
 }	*/	
 .author{
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 45%;
-	bottom: 0;
-	background: rgba(0,0,0,0.7);
-	text-align: center;
-	display: none;
-	color: #fff;
-	font-size: 16px;
-	line-height: 1em;
+	@include desctTag
 }
 .box:hover {
 	.author{
@@ -182,17 +198,7 @@ myphotobox{
 	width: 20px;
 }
 .photodesc{
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	bottom: 0;
-	background: rgba(0,0,0,0.1);
-	text-align: center;
-	display: none;
-	color: #fff;
-	font-size: 16px;
-	line-height: 1em;
+	@include authTag
 }
 .box:hover {
 	.photodesc{
@@ -208,18 +214,18 @@ myphotobox{
 		color: #fff;
 	}
 }
+.myFriend{
+	color:#1E74FF !important;
+}
 .s{
 	font-size: 16px;	
 }
-.social{
+a{
 	color:#fff ;
 }
-.social:hover{
+a:hover{
 	color:#fff;
 	text-decoration:none;
-}
-.bhead:hover{
-	color:#fff;
 }
 .aboutContainer{
 	padding-top:5%;
@@ -227,25 +233,8 @@ myphotobox{
 .frifam{
 	margin-top: -50px;
 }
-.butcolor{
-	color: #fff;
-}
-.butcolor:hover{
-	color: #fff;
-	text-decoration:none;
-}
 .myfriendauthor{
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	bottom: 0;
-	background: rgba(0,0,0,0.1);
-	text-align: center;
-	display: none;
-	color: #fff;
-	font-size: 16px;
-	line-height: 1em;	
+		@include authTag
 }
 .box:hover {
 	.myfriendauthor{

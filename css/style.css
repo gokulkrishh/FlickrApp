@@ -221,21 +221,21 @@ myphotobox {
   color: #fff;
 }
 
+.myFriend {
+  color: #1E74FF !important;
+}
+
 .s {
   font-size: 16px;
 }
 
-.social {
+a {
   color: white;
 }
 
-.social:hover {
+a:hover {
   color: #fff;
   text-decoration: none;
-}
-
-.bhead:hover {
-  color: #fff;
 }
 
 .aboutContainer {
@@ -244,15 +244,6 @@ myphotobox {
 
 .frifam {
   margin-top: -50px;
-}
-
-.butcolor {
-  color: #fff;
-}
-
-.butcolor:hover {
-  color: #fff;
-  text-decoration: none;
 }
 
 .myfriendauthor {
