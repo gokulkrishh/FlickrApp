@@ -1,3 +1,4 @@
+<div ng-controller="photoController">
 <div class="photo-header well">
     	<div class="myProfilePic" style="background:url('{{imgUrl}}');background-size: 100%;">
     	</div>
@@ -9,14 +10,16 @@
     		<a href="{{userInfo.profileurl._content}}" target="_blank" title="view my profile" 
     		class="userprof">{{userInfo.profileurl._content}}</a>
     	</div>
-    	<!-- <div class="rightDetails">
-    		
-    	</div> -->
+    	<div class="rightDetails">
+	    	<button ng-click="myFriendsPhotos(userInfo.id)" class="btn btn-primary right">
+	    		<a class="butcolor" href="#/myFriends">View Friends Photos</a>
+	    	</button>
+    	</div> 
 </div>
-<div class="myphoto-container container" ng-controller="photoController">
+<div class="myphoto-container container">
 	<div class="photo-container container">
 	    <div class="box myphoto-box" ng-repeat="i in userPhotos" style="background:url('{{i}}')"> 
-    	<span class="userdesc" ng-repeat="j in desc">
+    	<span class="photodesc" ng-repeat="j in desc">
         Title:{{j.photo.title._content}}
         <!-- Title -->
         <br>
@@ -31,11 +34,11 @@
 		<hr>
 		<div class="container friendlistDiv" ng-repeat="j in friendInfo.contacts.contact">
 			<img src="{{j.img}}" class="friendPhoto">
-			<a class="myFriend" href="#/myFriends" ngfriendImg-click="myFriends()">{{j.username}}
-			</a>
+			<a class="myFriend" href="#/myFriend" ng-click="myFriends(j.nsid,j.username)">
+			{{j.username}}</a>
 		</div>
 		<br>
 		<br>
 	</div>
 </div>
-
+<div>

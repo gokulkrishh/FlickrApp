@@ -1,5 +1,8 @@
+body{
+	background:#E6EAEF;
+}
 /*box border*/
-$border : 1px solid #ccc;
+$border : 1px solid #fff;
 
 /*box shadow*/
 @mixin boxshadow($radius){
@@ -22,7 +25,7 @@ $height : 500px;
 	width: 85%;
 	margin-bottom: 5%;
 	margin-top: -40px;
-	background: #D6D6D6;
+	background: #fff;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	margin-left: auto;
@@ -103,7 +106,7 @@ myphotobox{
 }		
 #footer{
 	height: 70px;
-	background-color: #CECECE;
+	background-color: #000;
 	padding-top: 20px;
 	p{
 		text-align:left;
@@ -112,7 +115,7 @@ myphotobox{
 .myProfilePic{
 	width: 150px;
 	height: 150px;
-	border: 1px solid #000;
+	border: 1px solid #ccc;
 	margin-left: 100px;
 	margin-top: 18px;
 }
@@ -134,7 +137,7 @@ myphotobox{
 	text-decoration: underline;
 }
 .rightDetails{
-	margin-top: -70px;
+	margin-top: -20px;
 	float:right;
 	margin-right:50px;
 }
@@ -153,7 +156,7 @@ myphotobox{
 	margin-top: 20px;
 }
 .friendlist{
-	background:#D6D6D6;
+	background:#fff;
 	max-width: 26%;
 	float: right;
 	width: 25%;
@@ -178,7 +181,7 @@ myphotobox{
 .friendPhoto{
 	width: 20px;
 }
-.userdesc{
+.photodesc{
 	position: absolute;
 	left: 0;
 	width: 100%;
@@ -191,10 +194,62 @@ myphotobox{
 	font-size: 16px;
 	line-height: 1em;
 }
-.box:hover .userdesc {
-	display: block;
-	padding-top: 20px;
+.box:hover {
+	.photodesc{
+		display: block;
+		padding-top: 20px;
+	}
 }
 .form-control .search{
 	width: 300px;
+}
+#footer {
+	p{
+		color: #fff;
+	}
+}
+.s{
+	font-size: 16px;	
+}
+.social{
+	color:#fff ;
+}
+.social:hover{
+	color:#fff;
+	text-decoration:none;
+}
+.bhead:hover{
+	color:#fff;
+}
+.aboutContainer{
+	padding-top:5%;
+}
+.frifam{
+	margin-top: -50px;
+}
+.butcolor{
+	color: #fff;
+}
+.butcolor:hover{
+	color: #fff;
+	text-decoration:none;
+}
+.myfriendauthor{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%%;
+	bottom: 0;
+	background: rgba(0,0,0,0.1);
+	text-align: center;
+	display: none;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1em;	
+}
+.box:hover {
+	.myfriendauthor{
+	display:  block;
+	padding-top: 10px;
+	}
 }

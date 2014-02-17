@@ -1,12 +1,5 @@
-<div class="main-container container" id="main-container" ng-controller="myController">
-    <h1 class="publicpic" style="padding-bottom: 3%;">Public Photos</h1>
-    <div class="box" ng-repeat="i in details.items" style="background:url('{{i.media.m}} no-repeat')">
-      <span class="author">
-        {{i.author.replace("nobody@flickr.com (","").replace(")","")}}
-        <br>
-        <br>
-        <a class="btn btn-sm btn-primary viewlink" ng-controller="photoController"
-        ng-click="myPublicPic(i.author_id,i.author)" href="#/photos">View My Photos</a>
-      </span>
+<div class="main-container container" id="main-container" ng-controller="photoController">
+    <h1 class="publicpic" style="padding-bottom: 3%;">{{myName}} Photos</h1>
+    <div class="box" ng-repeat="i in friendPhoto" style="background:url('{{i}}')">
     </div>
 </div>

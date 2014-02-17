@@ -1,3 +1,7 @@
+body {
+  background: #E6EAEF;
+}
+
 /*box border*/
 /*box shadow*/
 /* min- height for container */
@@ -10,7 +14,7 @@
   width: 85%;
   margin-bottom: 5%;
   margin-top: -40px;
-  background: #D6D6D6;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-left: auto;
@@ -41,7 +45,7 @@
 .box {
   width: 230px;
   height: 230px;
-  border: 1px solid #cccccc;
+  border: 1px solid white;
   -webkit-box-shadow: 0 3px 3px #cccccc;
   -moz-box-shadow: 0 3px 3px #cccccc;
   -o-box-shadow: 0 3px 3px #cccccc;
@@ -56,7 +60,7 @@
 myphotobox {
   width: 150px;
   height: 150px;
-  border: 1px solid #cccccc;
+  border: 1px solid white;
   -webkit-box-shadow: 0 3px 3px #cccccc;
   -moz-box-shadow: 0 3px 3px #cccccc;
   -o-box-shadow: 0 3px 3px #cccccc;
@@ -100,7 +104,7 @@ myphotobox {
 
 #footer {
   height: 70px;
-  background-color: #CECECE;
+  background-color: #000;
   padding-top: 20px;
 }
 #footer p {
@@ -110,7 +114,7 @@ myphotobox {
 .myProfilePic {
   width: 150px;
   height: 150px;
-  border: 1px solid #000;
+  border: 1px solid #ccc;
   margin-left: 100px;
   margin-top: 18px;
 }
@@ -137,7 +141,7 @@ myphotobox {
 }
 
 .rightDetails {
-  margin-top: -70px;
+  margin-top: -20px;
   float: right;
   margin-right: 50px;
 }
@@ -160,7 +164,7 @@ myphotobox {
 }
 
 .friendlist {
-  background: #D6D6D6;
+  background: #fff;
   max-width: 26%;
   float: right;
   width: 25%;
@@ -190,7 +194,7 @@ myphotobox {
   width: 20px;
 }
 
-.userdesc {
+.photodesc {
   position: absolute;
   left: 0;
   width: 100%;
@@ -204,11 +208,68 @@ myphotobox {
   line-height: 1em;
 }
 
-.box:hover .userdesc {
+.box:hover .photodesc {
   display: block;
   padding-top: 20px;
 }
 
 .form-control .search {
   width: 300px;
+}
+
+#footer p {
+  color: #fff;
+}
+
+.s {
+  font-size: 16px;
+}
+
+.social {
+  color: white;
+}
+
+.social:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.bhead:hover {
+  color: #fff;
+}
+
+.aboutContainer {
+  padding-top: 5%;
+}
+
+.frifam {
+  margin-top: -50px;
+}
+
+.butcolor {
+  color: #fff;
+}
+
+.butcolor:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.myfriendauthor {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%%;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: none;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1em;
+}
+
+.box:hover .myfriendauthor {
+  display: block;
+  padding-top: 10px;
 }
