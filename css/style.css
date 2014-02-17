@@ -57,7 +57,7 @@ body {
   cursor: pointer;
 }
 
-myphotobox {
+.myphotobox {
   width: 150px;
   height: 150px;
   border: 1px solid white;
@@ -72,17 +72,6 @@ myphotobox {
   cursor: pointer;
 }
 
-/*.model{
-	display:none;
-	position:fixed;
-	z-index:1000;
-	top:0;
-	left:0;
-	height:100%;
-	width:100%; 
-	background:rgba(0,0,0,0.8) 
-	url('images/ajax-loader.gif') 50% 50% no-repeat;
-}	*/
 .author {
   position: absolute;
   left: 0;
@@ -184,6 +173,8 @@ myphotobox {
   height: 25px;
   text-align: left;
   padding-top: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .friendlistDiv:hover {

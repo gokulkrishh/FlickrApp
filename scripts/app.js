@@ -4,7 +4,7 @@ var FlickrApp = angular.module('FlickrApp',['ngRoute']);
 FlickrApp.controller('myController',publicFeed); 
 
 // creating a factory service
-FlickrApp.factory('fetchPhotos',function($http,$q){
+FlickrApp.factory('fetchPhotos',function($http,$q,$rootScope){
   var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&callback=jsonFlickrFeed";
   var defered = $q.defer();//creating a defer instance
   var params = {
@@ -12,6 +12,7 @@ FlickrApp.factory('fetchPhotos',function($http,$q){
   };
   return{
     fetchData :function(){
+      $rootScope.$broadcast("loader_show");
       $http.jsonp(url,{
         params:params
       }).success(function(data) {
@@ -245,12 +246,3 @@ FlickrApp.controller('FriendPic',friendList);
     $routeProvider.otherwise({redirectTo:'/'});
 });
 // end of routing
-      
-//ajax loading image
-$("#spinner").bind('ajaxSend',function(){
-      $(this).show();
-  }).bind('ajaxError',function(){
-      $(this).hide();
-  }).bind('ajaxStop',function(){
-      $(this).hide();
-  });
