@@ -43,40 +43,40 @@
       // creating a factory service
       FlickrApp.factory('fetchPhotos',function($http,$q){
         var url = "http://api.flickr.com/services/feeds/photos_public.gne?format=json&callback=jsonFlickrFeed";
-        //var url = "/simple.json";
-        var defered = $q.defer();
+        var defered = $q.defer();//creating a defer instance
         var params = {
           jsoncallback: 'JSON_CALLBACK'
         };
         return{
-            fetchData :function(){
-            $http.jsonp(url,{
-              params:params
-            }).success(function(data) {
-              defered.resolve(data);
-            }).error(function(data) {
-              defered.resolve("Error Occurred");
-            });
-            return defered.promise;
+              fetchData :function(){
+              $http.jsonp(url,{
+                params:params
+              }).success(function(data) {
+                defered.resolve(data);
+              }).error(function(data) {
+                defered.resolve("Error Occurred");
+              });
+              return defered.promise;
+            }
           }
-        }
       });
         
         //passing a fectchPhotos factory service
         function publicFeed($scope,fetchPhotos) {
-        $scope.details = [];
-        fetchPhotos.fetchData().then(function(data){
-          $scope.details = data;
-        },
-        function(err){
-          $scope.details = err;
-          console.log(err);
-        });
-      } 
+          $scope.details = [];
+          //fetching defered funz
+          fetchPhotos.fetchData().then(function(data){
+            $scope.details = data;
+          },
+          function(err){
+            $scope.details = err;
+            //console.log(err);
+          });
+        }  
+      
       // user photo controller
       FlickrApp.controller('photoController',userPhotoId);
       function userPhotoId($scope,$rootScope,$http,$q) {
-        $scope.message = "hi";
         $scope.userData;
         $rootScope.userPhotos = [];
         $rootScope.desc = [];
@@ -86,86 +86,90 @@
         $rootScope.friendPhoto = [];
         $rootScope.myName;
         $rootScope.myFriendsPhoto = [];
+
         // myfriends funz
         $scope.myFriends = function(uid,friendname) {
-            console.log(uid);
-            console.log(friendname);
-            $rootScope.myName = friendname;
+          $rootScope.myName = friendname;
           var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
           $scope.params = {
             jsoncallback: 'JSON_CALLBACK',
           };
+          
           //ajax call for user detail
           var url5 = "http://api.flickr.com/services/rest/?method=flickr.photos.getContactsPublicPhotos&api_key="+api_key+"&user_id="+uid+"&&include_self=&format=json&callback=jsonFlickrFeed";
-          console.log(url5);
+          //console.log(url5);
 
+          //to getFriendPhoto
           $scope.getFriendsPhoto = function(){
-          $http.jsonp(url5,{
-            params:$scope.params
-          }).success(function(data) {
-            console.log("friends photo call");
-            $scope.myPublicPhoto = data;
-            console.log(data);
-            for(k in $scope.myPublicPhoto.photos.photo)
-            {
-                var friendPics = "http://farm"+data.photos.photo[k].farm+".staticflickr.com/"+
-                data.photos.photo[k].server+"/"+data.photos.photo[k].id+"_"+data.photos.photo[k].secret+".jpg";
-                $rootScope.friendPhoto.push(friendPics);
-            }
-            console.log($rootScope.friendPhoto);
-          }).error(function(data) {
-            console.log("friends photo call error");
-          });
+              $http.jsonp(url5,{
+                params:$scope.params
+              }).success(function(data) {
+                console.log("friends photo call");
+                $scope.myPublicPhoto = data;
+                console.log(data);
+                for(k in $scope.myPublicPhoto.photos.photo)
+                {
+                    var friendPics = "http://farm"+data.photos.photo[k].farm+".staticflickr.com/"+
+                    data.photos.photo[k].server+"/"+data.photos.photo[k].id+"_"+data.photos.photo[k].secret+".jpg";
+                    $rootScope.friendPhoto.push(friendPics);
+                }
+                console.log($rootScope.friendPhoto);
+              }).error(function(data) {
+                console.log("friends photo call error");
+              });
           }
           $scope.getFriendsPhoto();
-        }    
-        // end of myFriends funz
-        //my friends photos
+      }    
+        //end of myFriends funz
+        
+        //my friendsphotos funz
         $scope.myFriendsPhotos = function(id) {
-          var url6 = "http://api.flickr.com/services/feeds/photos_friends.gne?&user_id="+id+"&format=json";
-          $scope.params = {
-            jsoncallback: 'JSON_CALLBACK',
-          };
-          console.log(url6);
-          $http.jsonp(url6,{
-            params:$scope.params
-          }).success(function(data) {
-            console.log("friends photo call");
-            console.log(data);
-            for(m in data.items){
-              $rootScope.myFriendsPhoto.push(data.items[m]);
-            }
-            console.log($rootScope.myFriendsPhoto);
-          }).error(function(data) {
-            console.log("my friends photo call error");
-          });
+            var url6 = "http://api.flickr.com/services/feeds/photos_friends.gne?&user_id="+id+"&format=json";
+            $scope.params = {
+              jsoncallback: 'JSON_CALLBACK',
+            };
+            //console.log(url6);
+            $http.jsonp(url6,{
+              params:$scope.params
+            }).success(function(data) {
+              /*console.log("friends photo call");
+              console.log(data);*/
+              for(m in data.items){
+                $rootScope.myFriendsPhoto.push(data.items[m]);
+              }
+              console.log($rootScope.myFriendsPhoto);
+            }).error(function(data) {
+              console.log("my friends photo call error");
+            });
         }
         //end of my friends photos
+
+        //to get Public pic
         $scope.myPublicPic = function(photoid,authorname) {
-        var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
-        $scope.params = {
-            jsoncallback: 'JSON_CALLBACK',
-          };
-        //ajax call for user detail
-        var url1 = "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key="
+          var api_key = 'c2571fbbfd51eadf7913b812d9c4f502';
+          $scope.params = {
+              jsoncallback: 'JSON_CALLBACK',
+            };
+            //ajax call for user detail
+            var url1 = "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key="
                     +api_key+"&user_id="+photoid+"&format=json";
-        //console.log(url1);
-        var defered = $q.defer();
-        $scope.getUserInfo = function(){
-          $http.jsonp(url1,{
-            params:$scope.params
-          }).success(function(data) {
-            //console.log("userinfo call");
-            defered.resolve(data);
-            //console.log(data);
-          }).error(function(data) {
-            console.log("userinfo error");
-            defered.rejected("Error Occurred");
-          });
-          return defered.promise;
+          //console.log(url1);
+          var defered = $q.defer();
+          $scope.getUserInfo = function(){
+            $http.jsonp(url1,{
+              params:$scope.params
+            }).success(function(data) {
+              //console.log("userinfo call");
+              defered.resolve(data);
+              //console.log(data);
+            }).error(function(data) {
+              console.log("userinfo error");
+              defered.rejected("Error Occurred");
+            });
+            return defered.promise;
           }
-          $scope.getUserInfo().then(function(data)
-          {            
+          //getting userinfo funz
+          $scope.getUserInfo().then(function(data) {            
                 $rootScope.userInfo = data.person;
                 $rootScope.imgUrl = "http://farm"+$rootScope.userInfo.iconfarm+
                   ".staticflickr.com/"+$rootScope.userInfo.iconserver+"/buddyicons/"+
@@ -191,61 +195,58 @@
                   $rootScope.friendInfo.img = data;
                   console.log("friendinfo error");
                 });
-        },function(data){
+          },function(data){
               console.log(data);
-          });
+            });
+          
           //ajax call for user public photos
           if(photoid !== "" || null)
           {
-          var url2 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&sort=date-taken-desc&api_key="
-            +api_key+"&user_id="+photoid+"&per_page=24&format=json&callback=jsonFlickrApi";
-            var defered1 = $q.defer();
-            //console.log(url1);
-            $scope.getUserId = function(){
-            $http.jsonp(url2,{
-              params:$scope.params
-            }).success(function(data) {
-              //console.log("2nd call");
-              defered1.resolve(data);
-            }).error(function(data) {
-              console.log("1st error");
-              defered1.resolve("Error Occurred");
-            });
-            return defered1.promise;
-            }
-          $scope.getUserId().then(function(data)
-          {            
-            $scope.userData = data;
-            /*console.log("my data");
-            console.log($scope.userData);
-            */ for(var i in $scope.userData.photos.photo){
-              var url = "http://farm"+ $scope.userData.photos.photo[i].farm +".staticflickr.com/"+$scope.userData.photos.photo[i].server+"/"+ $scope.userData.photos.photo[i].id+"_"+$scope.userData.photos.photo[i].secret+".jpg";
-                $rootScope.userPhotos.push(url);
-              var url4 = "http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key="+api_key+"&photo_id="+$scope.userData.photos.photo[i].id+"&format=json";
-                $http.jsonp(url4,{
-                params:$scope.params
+              var url2 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&sort=date-taken-desc&api_key="
+              +api_key+"&user_id="+photoid+"&per_page=24&format=json&callback=jsonFlickrApi";
+              var defered1 = $q.defer();
+              //console.log(url1);
+              $scope.getUserId = function(){
+                $http.jsonp(url2,{
+                  params:$scope.params
                 }).success(function(data) {
-                  //console.log("user pic info");
-                  $rootScope.desc.push(data);
-                  //console.log($rootScope.userPhotos);
+                  //console.log("2nd call");
+                  defered1.resolve(data);
                 }).error(function(data) {
-                  console.log("user pic info erro");
-                  $rootScope.desc.push(data);
+                  console.log("1st error");
+                  defered1.resolve("Error Occurred");
                 });
-               //console.log("info");
-            }
-            //console.log($rootScope.desc);
-          },
-          function(err){
-            $rootScope.userPhotos = err;
-            console.log(err);
-          });
-      }
+                return defered1.promise;
+              }
+              //getting userId
+              $scope.getUserId().then(function(data){            
+              $scope.userData = data;
+              for(var i in $scope.userData.photos.photo){
+                var url = "http://farm"+ $scope.userData.photos.photo[i].farm +".staticflickr.com/"+$scope.userData.photos.photo[i].server+"/"+ $scope.userData.photos.photo[i].id+"_"+$scope.userData.photos.photo[i].secret+".jpg";
+                  $rootScope.userPhotos.push(url);
+                var url4 = "http://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key="+api_key+"&photo_id="+$scope.userData.photos.photo[i].id+"&format=json";
+                  $http.jsonp(url4,{
+                  params:$scope.params
+                  }).success(function(data) {
+                    //console.log("user pic info");
+                    $rootScope.desc.push(data);
+                    //console.log($rootScope.userPhotos);
+                  }).error(function(data) {
+                    console.log("user pic info erro");
+                    $rootScope.desc.push(data);
+                  });
+              }
+            },
+            function(err){
+                $rootScope.userPhotos = err;
+                console.log(err);
+            });
+        } // end of if stmt
+     }
   }
-}
     //controller for friend list
-    FlickrApp.controller('FriendPic',friendList);
-    function friendList($scope,fetchPhotos) {
+      FlickrApp.controller('FriendPic',friendList);
+      function friendList($scope,fetchPhotos) {
         $scope.details1 = [];
         fetchPhotos.fetchData().then(function(data){
           $scope.details1 = data;
@@ -255,7 +256,7 @@
           $scope.details1 = err;
           console.log(err);
         });
-    }
+     }
  
       //routing 
       FlickrApp.config(function($routeProvider) {
@@ -287,6 +288,7 @@
         });
         $routeProvider.otherwise({redirectTo:'/'});
       });
+      // end of routing
 </script>
 </body>
 </html>
