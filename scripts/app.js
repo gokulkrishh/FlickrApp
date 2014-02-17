@@ -170,7 +170,7 @@ function userPhotoId($scope,$rootScope,$http,$q) {
     if(photoid !== "" || null)
     {
         var url2 = "http://api.flickr.com/services/rest/?method=flickr.photos.search&sort=date-taken-desc&api_key="
-        +api_key+"&user_id="+photoid+"&per_page=24&format=json&callback=jsonFlickrApi";
+        +api_key+"&user_id="+photoid+"&per_page=30&format=json&callback=jsonFlickrApi";
         var defered1 = $q.defer();
         //console.log(url1);
         $scope.getUserId = function(){
