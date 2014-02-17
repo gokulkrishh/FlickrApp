@@ -11,22 +11,14 @@
     		class="userprof">{{userInfo.profileurl._content}}</a>
     	</div>
     	<div class="rightDetails">
-	    	<button ng-click="myFriendsPhotos(userInfo.id)" class="btn btn-primary right">
-	    		<a class="butcolor" href="#/myFriends">View Friends Photos</a>
+	    	<button class="btn btn-primary right">
+	    		<a ng-click="myFriendsPhotos(userInfo.id,userInfo.username._content)" class="butcolor" href="#/myFriends">View Friends Photos</a>
 	    	</button>
     	</div> 
 </div>
 <div class="myphoto-container container">
 	<div class="photo-container container">
 	    <div class="box myphoto-box" ng-repeat="i in userPhotos" style="background:url('{{i}}')"> 
-    	<span class="photodesc" ng-repeat="j in desc">
-        Title:{{j.photo.title._content}}
-        <!-- Title -->
-        <br>
-        <br>
-        <!-- Desc -->
-        Description:{{j.photo.description._content}}
-      </span>
       </div>
 	</div>
 	<div class="friendlist well">

@@ -3,23 +3,17 @@
             <div class="myProfilePic" style="background:url('{{imgUrl}}');background-size: 100%;">
             </div>
             <div class="container leftDetails">
-                <h2 class="username" ng-bing="">{{userInfo.username._content}}</h2>
-                <p class="userdesc"><b>Description:</b>{{userInfo.description._content}}</p>
-                <p class="photoCount"><b>Total photos:</b> {{userInfo.photos.count._content}}</p>
-                <br><br>
-                <a href="{{userInfo.profileurl._content}}" target="_blank" title="view my profile" 
-                class="userprof">{{userInfo.profileurl._content}}</a>
+                <h1 class="uname">{{nameOfPic}} friends and family photos</h1>
             </div>
     </div> 
     <div class="main-container container" id="main-container">
         <h3 class="frifam">{{userInfo.username._content}}</h3>
         <div class="box" ng-repeat="j in myFriendsPhoto" style="background:url('{{j.media.m}}')">
             <span class="myfriendauthor">
-            {{j.author.replace("nobody@flickr.com (","").replace(")","")}}
+            Owner : {{j.author.replace("nobody@flickr.com (","").replace(")","")}}
             <br>
-            {{j.description}}
             <br>
-            {{j.date_taken}}
+            Date of taken : {{j.date_taken}}
             </span>
         </div>
     </div>
