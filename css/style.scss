@@ -175,3 +175,26 @@ myphotobox{
 .friendlistDiv:hover{
 	background-color:#ccc;
 }
+.friendPhoto{
+	width: 20px;
+}
+.userdesc{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	background: rgba(0,0,0,0.1);
+	text-align: center;
+	display: none;
+	color: #fff;
+	font-size: 16px;
+	line-height: 1em;
+}
+.box:hover .userdesc {
+	display: block;
+	padding-top: 20px;
+}
+.form-control .search{
+	width: 300px;
+}

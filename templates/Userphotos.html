@@ -1,5 +1,5 @@
 <div class="photo-header well">
-    	<div class="myProfilePic" style="background:url('{{imgUrl}} no-repeat');background-size: 100%;">
+    	<div class="myProfilePic" style="background:url('{{imgUrl}}');background-size: 100%;">
     	</div>
     	<div class="container leftDetails">
     		<h2 class="username">{{userInfo.username._content}}</h2>
@@ -16,13 +16,22 @@
 <div class="myphoto-container container" ng-controller="photoController">
 	<div class="photo-container container">
 	    <div class="box myphoto-box" ng-repeat="i in userPhotos" style="background:url('{{i}}')"> 
-    	</div>
+    	<span class="userdesc" ng-repeat="j in desc">
+        Title:{{j.photo.title._content}}
+        <!-- Title -->
+        <br>
+        <br>
+        <!-- Desc -->
+        Description:{{j.photo.description._content}}
+      </span>
+      </div>
 	</div>
 	<div class="friendlist well">
 		<h3>My Friend List</h3>
 		<hr>
 		<div class="container friendlistDiv" ng-repeat="j in friendInfo.contacts.contact">
-			<a class="myFriend" href="#/myFriends" ng-click="myFriends()">{{j.username}}
+			<img src="{{j.img}}" class="friendPhoto">
+			<a class="myFriend" href="#/myFriends" ngfriendImg-click="myFriends()">{{j.username}}
 			</a>
 		</div>
 		<br>
