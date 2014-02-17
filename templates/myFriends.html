@@ -10,10 +10,13 @@
         <h3 class="frifam">{{userInfo.username._content}}</h3>
         <div class="box" ng-repeat="j in myFriendsPhoto" style="background:url('{{j.media.m}}')">
             <span class="myfriendauthor">
-            Owner : {{j.author.replace("nobody@flickr.com (","").replace(")","")}}
+            <b>Title :</b> {{j.title}}
+            <br><br>
+            <b>Owner :</b> {{j.author.replace("nobody@flickr.com (","").replace(")","")}}
             <br>
             <br>
-            Date of taken : {{j.date_taken}}
+            <b>Date of taken </b><br><br>
+            {{j.date_taken}}
             </span>
         </div>
     </div>

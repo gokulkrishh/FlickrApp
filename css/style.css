@@ -200,7 +200,7 @@ myphotobox {
   width: 100%;
   height: 100%;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.5);
   text-align: center;
   display: none;
   color: #fff;
@@ -252,7 +252,7 @@ a:hover {
   width: 100%;
   height: 100%;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.5);
   text-align: center;
   display: none;
   color: #fff;
