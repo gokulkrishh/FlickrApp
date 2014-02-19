@@ -1,31 +1,32 @@
+'use strict';
 //controller function
 angular.module('FlickrApp.controllers',[]).
 // controller for fethc data from factory 
-controller('myController',['$scope','fetchPhotos',function ($scope,fetchPhotos) {
-		// for minified app.js to understand we use [] with function as array of strings
-	  	$scope.details = []; //assign a array in $scope object
-	  	fetchPhotos.fetchData().then(function(data){ //fetching data from factory
-	      $scope.details = data; // storing data in array
-	  	},
-	  	function(err){
-	  		$scope.details = err; //storing error
-	  	//console.log(err);
-	  	});
+controller('myController', ['$scope', 'fetchPhotos', function ($scope,fetchPhotos) {
+ // for minified app.js to understand we use [] with function as array of strings
+	$scope.details = []; //assign a array in $scope object
+	fetchPhotos.fetchData().then( function(data) { //fetching data from factory
+	 $scope.details = data; // storing data in array
+	},
+	function (err) {
+	 $scope.details = err; //storing error
+	 //console.log(err);
+	});
 }]) //end of myController
 // photoController to get particular public user's photo
-.controller('photoController',['$scope','$rootScope','$http','$q',function ($scope,$rootScope,$http,$q) {
-		// declaring $scope and $rootScope object as array
-		  $scope.userData = [];
-		  $scope.myPublicPhoto = [];
-	  	$rootScope.userPhotos = [];
-	  	$rootScope.userPhotos.desc = [];
-	  	$rootScope.userInfo = [];
-	  	$rootScope.friendPic = [];
-	  	$rootScope.friendPhoto = [];
-	  	$rootScope.myName;
-	  	$rootScope.myFriendsPhoto = [];
-	  	$rootScope.nameOfPic;
-	  	//declaring and initialsing $scope.param object to use in  ajax call
+.controller('photoController', ['$scope', '$rootScope', '$http', '$q', function ($scope,$rootScope,$http,$q) {
+  // declaring $scope and $rootScope object as array
+	$scope.userData = [];
+	$scope.myPublicPhoto = [];
+	$rootScope.userPhotos = [];
+	$rootScope.userPhotos.desc = [];
+	$rootScope.userInfo = [];
+	$rootScope.friendPic = [];
+	$rootScope.friendPhoto = [];
+	$rootScope.myName;
+	$rootScope.myFriendsPhoto = [];
+	$rootScope.nameOfPic;
+	//declaring and initialsing $scope.param object to use in  ajax call
 	  	$scope.params = {
         	jsoncallback: 'JSON_CALLBACK',
     	};
