@@ -64,7 +64,7 @@ controller('myController', ['$scope', 'fetchPhotos', function ($scope,fetchPhoto
               }).success(function(data) { 
                   $rootScope.friendInfo = data; //on success store data in $rootScope.friendInfo object
                   // Using for-in loop to get all user's contact picture to show in friendlist
-                  for(k in $rootScope.friendInfo.contacts.contact)
+                  for(var k in $rootScope.friendInfo.contacts.contact)
                   {
                       var friendPic = "http://farm"+data.contacts.contact[k].iconfarm+
                               ".staticflickr.com/"+data.contacts.contact[k].iconserver+"/buddyicons/"+
@@ -118,7 +118,7 @@ controller('myController', ['$scope', 'fetchPhotos', function ($scope,fetchPhoto
           $http.jsonp(url3,{
               params:$scope.params //passing params
           }).success(function(data) {
-              for(m in data.items){ //on success using for in loop to traverse data items
+              for(var m in data.items){ //on success using for in loop to traverse data items
                 $rootScope.myFriendsPhoto.push(data.items[m]); //pushing photos in array
               }
           }).error(function(data) {
