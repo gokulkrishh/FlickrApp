@@ -137,7 +137,7 @@ controller('myController', ['$scope', 'fetchPhotos', function ($scope,fetchPhoto
               params:$scope.params //passing params
             }).success(function(data) {
             $scope.myPublicPhoto = data; //on success storing data in myPublicPhoto scope obj
-              for(k in $scope.myPublicPhoto.photos.photo) //for in loop to traverse photos from above $scope.myPublicPhoto obj
+              for(var k in $scope.myPublicPhoto.photos.photo) //for in loop to traverse photos from above $scope.myPublicPhoto obj
               {
                   var friendPics = "http://farm"+data.photos.photo[k].farm+".staticflickr.com/"+
                             data.photos.photo[k].server+"/"+data.photos.photo[k].id+"_"+data.photos.photo[k].secret+".jpg";
